@@ -8,9 +8,14 @@ use App\Models\Visiteur;
 class VisiteurController extends Controller
 {
     public function Index(){
-        $visiteur = Visiteur::where('id', request('id'))->first();
-        return view('accueil', [
-            'visiteur'=> $visiteur,
-        ]);
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+            return view('accueil', [
+                'visiteur'=> $visiteur,
+            ]);
+        }
+        else {
+            return redirect('/');
+        }     
     }
 }

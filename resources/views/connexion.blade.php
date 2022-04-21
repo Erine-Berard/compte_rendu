@@ -12,18 +12,23 @@
             {{csrf_field()}}
             <img class="mb-4" src="/images/logo-gsb.png" alt="" width='20%'>
             <h1 class="h3 mb-3 fw-normal mt-4">Identifiez vous :</h1>
-            @if ($erreur != null)
-                <div class="alert alert-danger" role="alert">
-                    {{$erreur}}
-                </div>
-            @endif
             <div class="mb-3 text-start">
                 <label for="login" class="form-label">Login : </label>
                 <input type="login" class="form-control" id="login" name="login" placeholder="Login">
+                @if ($errors->has('login'))
+                    <div class="alert alert-danger" role="alert">
+                        {{$errors->first('login')}}
+                    </div>
+                @endif
             </div>
             <div class="mb-3 text-start">
                 <label for="mp" class="form-label">Mot de passe :</label>
                 <input type="password" class="form-control" id="mp" name="mp" placeholder="***********">
+                @if ($errors->has('mp'))
+                    <div class="alert alert-danger" role="alert">
+                        {{$errors->first('mp')}}
+                    </div>
+                @endif
             </div>
             <input class="w-100 btn btn-lg btn-primary" type="submit" value="CONNEXION">
         </form>

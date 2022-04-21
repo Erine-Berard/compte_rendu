@@ -20,5 +20,5 @@ Route::post('/', 'App\Http\Controllers\ConnexionController@Connexion');
 
 
 // Accueil 
-Route::get('/accueil/{id}', 'App\Http\Controllers\VisiteurController@Index');
+Route::get('/accueil', 'App\Http\Controllers\VisiteurController@Index');
 
