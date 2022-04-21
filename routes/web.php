@@ -22,3 +22,14 @@ Route::post('/', 'App\Http\Controllers\ConnexionController@Connexion');
 // Accueil 
 Route::get('/accueil', 'App\Http\Controllers\VisiteurController@Index');
 
+//Rapport de visite 
+Route::get('/rapportdevisite', 'App\Http\Controllers\VisiteurController@RapportFormulaire');
+Route::post('/rapportdevisite', 'App\Http\Controllers\VisiteurController@Rapport');
+
+//Médicament
+Route::get('/medicament', 'App\Http\Controllers\VisiteurController@Medicament');
+Route::get('/medicament/precedent/{id}', 'App\Http\Controllers\VisiteurController@MedicamentPrecedent');
+Route::get('/medicament/suivant/{id}', 'App\Http\Controllers\VisiteurController@MedicamentSuivant');
+
+
+
