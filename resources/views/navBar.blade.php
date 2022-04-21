@@ -17,7 +17,7 @@
             <a class="btn btn-outline-dark" href="/rapportdevisite">
                 Comptes-Rendus
             </a><br>
-            <a class="btn btn-outline-dark mt-2" href="">
+            <a class="btn btn-outline-dark mt-2" href="/visiteur">
                 Visiteurs
             </a><br>
             <a class="btn btn-outline-dark mt-2" href="/praticien">
@@ -26,7 +26,7 @@
             <a class="btn btn-outline-dark mt-2" href="/medicament">
                 Médicaments
             </a><br>
-            <a class="btn btn-outline-dark mt-2" href="">
+            <a class="btn btn-outline-dark mt-2" href="/deconexion">
                 Quiter
             </a><br> 
         </div>

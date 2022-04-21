@@ -11,6 +11,8 @@ use App\Models\Rapports;
 use App\Models\Famille;
 use App\Models\Praticien;
 use App\Models\LieuxExercice;
+use App\Models\Secteur;
+use App\Models\Labo;
 
 
 
@@ -32,7 +34,7 @@ class VisiteurController extends Controller
         if (auth()->check())  {
             $visiteur = auth()->user();
 
-            $praticiens = Visiteur::where('statut', 'PRA')->get();
+            $praticiens = Praticien::all();
             $medicaments = Medicament::all();
             
 
@@ -203,6 +205,106 @@ class VisiteurController extends Controller
             else {
                 return back();
             }
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
+    public function Visiteur(){
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+            $visiteurs = Visiteur::all();
+            return view('visiteur', [
+                'visiteurs'=>$visiteurs,
+                'visiteur'=> $visiteur,
+                'visiteurSelect' => $visiteur,
+                'secteur' => Secteur::where('id', $visiteur['IDsecteur'])->first(),
+                'secteurs' => Secteur::all(),
+                'labos' => Labo::all(),
+                'labo' => Labo::where('id', $visiteur['IDlieu'])->first(),
+            ]);
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
+    public function VisiteurPost(){
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+            $visiteurs = Visiteur::all();
+            $visiteurModif = Visiteur::where('id', request('id'))->first();
+            $visiteurModif->update([
+                'nom' => request('nom'),
+                'prenom'=>request('prenom'),
+                'adresse'=>request('adresse'),
+                'cp'=>request('cp'),
+                'ville'=>request('ville'),
+                'IDsecteur'=>request('secteur'),
+                'IDlabo'=>request('labo'),
+            ]);
+            if (request('btn') == 'Recherche'){
+                $visiteurSelect = Visiteur::where('id', request('visiteur'))->first();
+                if($visiteurSelect != null){
+                    return view('visiteur', [
+                        'visiteurs'=>$visiteurs,
+                        'visiteur'=> $visiteur,
+                        'visiteurSelect' => $visiteurSelect,
+                        'secteur' => Secteur::where('id', $visiteur['IDsecteur'])->first(),
+                        'secteurs' => Secteur::all(),
+                        'labos' => Labo::all(),
+                        'labo' => Labo::where('id', $visiteur['IDlieu'])->first(),
+                    ]);
+                }
+                else {
+                    return back();
+                }
+            }
+            else if(request('btn') == 'Precedent'){
+                $visiteurSelect = Visiteur::where('id', request('id')-1)->first();
+                if($visiteurSelect != null){
+                    return view('visiteur', [
+                        'visiteurs'=>$visiteurs,
+                        'visiteur'=> $visiteur,
+                        'visiteurSelect' => $visiteurSelect,
+                        'secteur' => Secteur::where('id', $visiteur['IDsecteur'])->first(),
+                        'secteurs' => Secteur::all(),
+                        'labos' => Labo::all(),
+                        'labo' => Labo::where('id', $visiteur['IDlieu'])->first(),
+                    ]);
+                }
+                else {
+                    return back();
+                }
+            }
+            else if(request('btn') == 'Suivant'){
+                $visiteurSelect = Visiteur::where('id', request('id')+1)->first();
+                if($visiteurSelect != null){
+                    return view('visiteur', [
+                        'visiteurs'=>$visiteurs,
+                        'visiteur'=> $visiteur,
+                        'visiteurSelect' => $visiteurSelect,
+                        'secteur' => Secteur::where('id', $visiteur['IDsecteur'])->first(),
+                        'secteurs' => Secteur::all(),
+                        'labos' => Labo::all(),
+                        'labo' => Labo::where('id', $visiteur['IDlieu'])->first(),
+                    ]);
+                }
+                else {
+                    return back();
+                }
+            }
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
+    public function Deconexion(){
+        if (auth()->check())  {
+            auth()->logout();
+            return redirect('/');
         }
         else {
             return redirect('/');

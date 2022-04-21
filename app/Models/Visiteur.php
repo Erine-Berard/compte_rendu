@@ -10,7 +10,7 @@ class Visiteur extends Model implements Authenticatable
 {
     use BasicAuthenticatable;
 
-    protected $fillable = ['id', 'login', 'nom', 'prenom','adresse','cp','ville','dateEmbauche','statut'];
+    protected $fillable = ['id', 'login', 'nom', 'prenom','adresse','cp','ville','dateEmbauche','statut', 'IDsecteur', 'IDlabo'];
 
     /**
      * Get the password for the user

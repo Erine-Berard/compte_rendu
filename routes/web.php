@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\ConnexionController@Index');
 Route::post('/', 'App\Http\Controllers\ConnexionController@Connexion');
 
+//Deconexion
+Route::get('/deconexion', 'App\Http\Controllers\VisiteurController@Deconexion');
 
 // Accueil 
 Route::get('/accueil', 'App\Http\Controllers\VisiteurController@Index');
@@ -38,8 +40,7 @@ Route::get('/praticien/precedent/{id}', 'App\Http\Controllers\VisiteurController
 Route::get('/praticien/suivant/{id}', 'App\Http\Controllers\VisiteurController@PraticienSuivant');
 
 //Visiteur
-Route::get('/praticien', 'App\Http\Controllers\VisiteurController@Praticien');
-Route::post('/praticien', 'App\Http\Controllers\VisiteurController@PraticienRecherche');
-Route::get('/praticien/precedent/{id}', 'App\Http\Controllers\VisiteurController@PraticienPrecedent');
-Route::get('/praticien/suivant/{id}', 'App\Http\Controllers\VisiteurController@PraticienSuivant');
+Route::get('/visiteur', 'App\Http\Controllers\VisiteurController@Visiteur');
+Route::post('/visiteur', 'App\Http\Controllers\VisiteurController@VisiteurPost');
+
 
