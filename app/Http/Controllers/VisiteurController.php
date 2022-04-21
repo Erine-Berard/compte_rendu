@@ -9,6 +9,9 @@ use App\Models\Rapport;
 use App\Models\MedicamentRapport;
 use App\Models\Rapports;
 use App\Models\Famille;
+use App\Models\Praticien;
+use App\Models\LieuxExercice;
+
 
 
 class VisiteurController extends Controller
@@ -120,6 +123,81 @@ class VisiteurController extends Controller
                     'visiteur'=> $visiteur,
                     'medicament'=>$medicament,
                     'famille' => Famille::where('id', $medicament['famille'])->first(),
+                ]);
+            }
+            else {
+                return back();
+            }
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
+    public function Praticien(){
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+            $praticiens = Praticien::all();
+            return view('praticien', [
+                'praticiens'=>$praticiens,
+                'visiteur'=> $visiteur,
+                'praticien'=>$praticiens[0],
+                'lieu' => LieuxExercice::where('id', $praticiens[0]['lieu'])->first(),
+            ]);
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
+    public function PraticienRecherche(){
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+            $praticiens = Praticien::all();
+            $praticien = Praticien::where('id', request('praticien'))->first();
+            return view('praticien', [
+                'praticiens'=>$praticiens,
+                'visiteur'=> $visiteur,
+                'praticien'=>$praticien,
+                'lieu' => LieuxExercice::where('id', $praticien['lieu'])->first(),
+            ]);
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
+    public function praticienSuivant(){
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+            $praticien = Praticien::where('id', request('id')+1)->first();
+            if ($praticien != null){
+                return view('praticien', [
+                    'praticiens'=>Praticien::all(),
+                    'visiteur'=> $visiteur,
+                    'praticien'=>$praticien,
+                    'lieu' => LieuxExercice::where('id', $praticien['lieu'])->first(),
+                ]);
+            }
+            else {
+                return back();
+            }
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
+    public function praticienPrecedent(){
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+            $praticien = Praticien::where('id', request('id')-1)->first();
+            if ($praticien != null){
+                return view('praticien', [
+                    'praticiens'=>Praticien::all(),
+                    'visiteur'=> $visiteur,
+                    'praticien'=>$praticien,
+                    'lieu' => LieuxExercice::where('id', $praticien['lieu'])->first(),
                 ]);
             }
             else {

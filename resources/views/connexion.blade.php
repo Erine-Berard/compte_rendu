@@ -32,4 +32,5 @@
             </div>
             <input class="w-100 btn btn-lg btn-primary" type="submit" value="CONNEXION">
         </form>
+    </main>
 </body>

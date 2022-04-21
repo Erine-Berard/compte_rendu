@@ -31,5 +31,15 @@ Route::get('/medicament', 'App\Http\Controllers\VisiteurController@Medicament');
 Route::get('/medicament/precedent/{id}', 'App\Http\Controllers\VisiteurController@MedicamentPrecedent');
 Route::get('/medicament/suivant/{id}', 'App\Http\Controllers\VisiteurController@MedicamentSuivant');
 
+//Praticiens
+Route::get('/praticien', 'App\Http\Controllers\VisiteurController@Praticien');
+Route::post('/praticien', 'App\Http\Controllers\VisiteurController@PraticienRecherche');
+Route::get('/praticien/precedent/{id}', 'App\Http\Controllers\VisiteurController@PraticienPrecedent');
+Route::get('/praticien/suivant/{id}', 'App\Http\Controllers\VisiteurController@PraticienSuivant');
 
+//Visiteur
+Route::get('/praticien', 'App\Http\Controllers\VisiteurController@Praticien');
+Route::post('/praticien', 'App\Http\Controllers\VisiteurController@PraticienRecherche');
+Route::get('/praticien/precedent/{id}', 'App\Http\Controllers\VisiteurController@PraticienPrecedent');
+Route::get('/praticien/suivant/{id}', 'App\Http\Controllers\VisiteurController@PraticienSuivant');
 

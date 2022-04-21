@@ -20,7 +20,7 @@
             <a class="btn btn-outline-dark mt-2" href="">
                 Visiteurs
             </a><br>
-            <a class="btn btn-outline-dark mt-2" href="">
+            <a class="btn btn-outline-dark mt-2" href="/praticien">
                 Praticiens
             </a><br>
             <a class="btn btn-outline-dark mt-2" href="/medicament">
