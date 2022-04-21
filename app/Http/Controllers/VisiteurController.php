@@ -49,6 +49,51 @@ class VisiteurController extends Controller
         }     
     }
 
+    public function RapportVoir(){
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+
+            $praticiens = Praticien::all();
+            $rapports = Rapports::all();
+            
+            return view('rapportVoir', [
+                'visiteur'=> $visiteur,
+                'praticiens' => $praticiens,
+                'rapports' => $rapports,
+            ]);
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
+    public function RapportVoirUnit(){
+        if (auth()->check())  {
+            $visiteur = auth()->user();
+
+            $rapport = Rapports::where('id', request('id'))->first();
+            $praticien = Praticien::where('id', $rapport['idPraticien'])->first();
+            $visiteurRapport = Visiteur::where('id', $rapport['idVisiteur'])->first();
+            $liensMedocs = MedicamentRapport::where('idRapport', $rapport['id'])->get();
+            $medicaments = Medicament::all();
+            $familles = Famille::all();
+            
+            
+            return view('rapportVoirUnit', [
+                'visiteur'=> $visiteur,
+                'praticien' => $praticien,
+                'rapport' => $rapport,
+                'liensMedocs' => $liensMedocs,
+                'medicaments'=>  $medicaments,
+                'visiteurRapport' => $visiteurRapport,
+                'familles' => $familles,
+            ]);
+        }
+        else {
+            return redirect('/');
+        }     
+    }
+
     public function Rapport(){
         if (auth()->check())  {
             $visiteur = auth()->user();
@@ -74,7 +119,7 @@ class VisiteurController extends Controller
                     ]);
                 }
             }
-            return redirect('/accueil');
+            return redirect('/rapportdevisite/voir');
         }
         else {
             return redirect('/');

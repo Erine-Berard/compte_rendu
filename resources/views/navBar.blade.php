@@ -15,7 +15,10 @@
                 Information : {{$visiteur['nom']}} {{$visiteur['prenom']}}
             </p>    
             <a class="btn btn-outline-dark" href="/rapportdevisite">
-                Comptes-Rendus
+                Créer Comptes-Rendus
+            </a><br>
+            <a class="btn btn-outline-dark mt-2" href="/rapportdevisite/voir">
+                Voir Comptes-Rendus
             </a><br>
             <a class="btn btn-outline-dark mt-2" href="/visiteur">
                 Visiteurs

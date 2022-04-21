@@ -38,7 +38,7 @@
                 <div id="groupe">
                 </div>
             </div>
-            <input class=" btn btn-lg btn-primary  w-25" type="submit" value="CONNEXION">
+            <input class=" btn btn-primary  w-25" type="submit" value="Ajouter">
         </form>
     </div>
     <script type="text/javascript">

@@ -28,6 +28,10 @@ Route::get('/accueil', 'App\Http\Controllers\VisiteurController@Index');
 Route::get('/rapportdevisite', 'App\Http\Controllers\VisiteurController@RapportFormulaire');
 Route::post('/rapportdevisite', 'App\Http\Controllers\VisiteurController@Rapport');
 
+Route::get('/rapportdevisite/voir', 'App\Http\Controllers\VisiteurController@RapportVoir');
+Route::get('/rapportdevisite/voir/{id}', 'App\Http\Controllers\VisiteurController@RapportVoirUnit');
+
+
 //Médicament
 Route::get('/medicament', 'App\Http\Controllers\VisiteurController@Medicament');
 Route::get('/medicament/precedent/{id}', 'App\Http\Controllers\VisiteurController@MedicamentPrecedent');
