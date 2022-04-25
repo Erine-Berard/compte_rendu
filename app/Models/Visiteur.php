@@ -19,62 +19,47 @@ class Visiteur extends Model implements Authenticatable
      */
     public function getAuthPassword(){
         $date = $this->dateEmbauche;
-
         $jour= "";
         $mois= "";
         $annee= "";
-
-        for($i = 0; $i < strlen($date); $i++){
-            if ($i < 4){
+        for($i = 0; $i < strlen($date); $i++){ // Parcourent tous les caractères un par un de la date 
+            if ($i < 4){ // Récupère l'année 
                 $annee= $annee.$date[$i];
             }
-            else if ($i > 4 && $i < 7){
+            else if ($i > 4 && $i < 7){ // Récupère le mois
                 $mois = $mois.$date[$i];
             }
-            else if ($i > 7){
+            else if ($i > 7){ // Récupère le jour
                 $jour = $jour.$date[$i];
             }
         }
-        switch ($mois) {
+        switch ($mois) { // Change le numéro du mois en acronyme  
             case 01 : 
-                $mois = 'jan';
-                break;
+                $mois = 'jan'; break;
             case 02 : 
-                $mois = 'feb';
-                break;
+                $mois = 'feb'; break;
             case 03 : 
-                $mois = 'mar';
-                break;
+                $mois = 'mar'; break;
             case 04 : 
-                $mois = 'apr';
-                break;
+                $mois = 'apr'; break;
             case 05 : 
-                $mois = 'may';
-                break;
+                $mois = 'may'; break;
             case 06 : 
-                $mois = 'jun';
-                break;
+                $mois = 'jun'; break;
             case 07 : 
-                $mois = 'jul';
-                break;
+                $mois = 'jul'; break;
             case 8 : 
-                $mois = 'jul';
-                break;
+                $mois = 'jul'; break;
             case 9 : 
-                $mois = 'sep';
-                break;
+                $mois = 'sep'; break;
             case 10 : 
-                $mois = 'oct';
-                break;
+                $mois = 'oct'; break;
             case 11 : 
-                $mois = 'nov';
-                break;
+                $mois = 'nov'; break;
             case 12 : 
-                $mois = 'dec';
-                break;
+                $mois = 'dec'; break;
         }
-        $mp = $jour."-".$mois."-".$annee;
-
+        $mp = $jour."-".$mois."-".$annee; // Concatène le mot de passe 
         return bcrypt($mp);
     }
 

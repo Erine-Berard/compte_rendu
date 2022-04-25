@@ -42,25 +42,20 @@
         </form>
     </div>
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('#Ajout').click(function(){
-                var div = document.getElementById("groupe");
-                var taille = div.childNodes.length; 
-
-                if(taille == 1){
+        $(document).ready(function(){ // S'exécute quand la page est  complètement chargée 
+            $('#Ajout').click(function(){ // S'exécute quand le bouton avec l'id "ajout" est cliqué 
+                var div = document.getElementById("groupe"); // Récupère la div "groupe"
+                var taille = div.childNodes.length; // Récupère le nombre d'enfants de la div 
+                if(taille == 1){ // S'il y a un enfant
                     var i = 1;
+                    $('#btnAjout').append( // On ajoute un bouton supprimé 
+                        '<button type="button" onclick="Supprimer()" class="btn btn-danger">Supprimer un médicament</button>'
+                    )
                 }
                 else{
                     var i = taille;
                 }
-
-                if (i == 1){
-                    $('#btnAjout').append(
-                        '<button type="button" onclick="Supprimer()" class="btn btn-danger">Supprimer un médicament</button>'
-                    )
-                }
-
-                $('#groupe').append(
+                $('#groupe').append( // Ajoute les champs medicament et quantité
                     '<div class="mt-3">' +
                         '<label for="disabledTextInput" class="form-label">Médicament N°'+i+' :</label>' +
                         '<div class="row">' +
@@ -75,26 +70,22 @@
                 )
             })
         })
-        function Supprimer(){
-            console.log('coucou');
-            var div = document.getElementById("groupe");
-            var btn = document.getElementById("btnAjout");
-            var taille = div.childNodes.length; 
-
+        function Supprimer(){ // Fonction qui s'exécute quand on clique sur le bouton supprimer grace à l'attribut onclick
+            var div = document.getElementById("groupe"); // Récupère la div "groupe"
+            var btn = document.getElementById("btnAjout"); // Récupère le bouton "btnAjout"
+            var taille = div.childNodes.length; // Récupère le nombre d'enfants de la div 
             if(taille == 1){
                 var i = 1;
             }
             else{
                 var i = taille;
             }
-
-            console.log(i);
-            if (i == 2){
-                btn.removeChild(btn.lastChild); 
-                div.removeChild(div.lastChild);
+            if (i == 2){ // S' il y a deux enfants
+                btn.removeChild(btn.lastChild); // Supprime le bouton suprimer medicament
+                div.removeChild(div.lastChild); // Supprime le dernier enfant
                                    
             }
-            else if (i != 1){
+            else if (i != 1){ // S'il y a autre que un enfant 
                 div.removeChild(div.lastChild);
             }
         }

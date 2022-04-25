@@ -14,7 +14,7 @@ class ConnexionController extends Controller
     }
 
     public function Connexion(){
-        request()->validate([
+        request()->validate([ // On vérifie les valeurs envoyées 
             'login' =>['required'],
             'mp' => ['required']
         ],[
@@ -22,17 +22,17 @@ class ConnexionController extends Controller
             'mp.required' => "Ce champ est obligatoire"
         ]);
 
-        $resultat = auth()->attempt([
+        $resultat = auth()->attempt([ // On vérifie la connexion grace à des méthodes propres à Laravel 
             'login' =>request('login'),
             'password' => request('mp'),
         ]);
 
-        if ($resultat == false){
+        if ($resultat == false){ // Si la connexion n'est pas bonne on revoie sur la page de connexion avec une erreur
             return back()->withinput()->withErrors([
                 'login' => "Login ou mot de passe incorecte"
             ]);
         }
-        else {
+        else { // Sinon on redirige vers la page d'acceuil 
             return redirect('/accueil');
         }
     }

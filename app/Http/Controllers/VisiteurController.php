@@ -18,14 +18,14 @@ use App\Models\Labo;
 
 class VisiteurController extends Controller
 {
-    public function Index(){
-        if (auth()->check())  {
-            $visiteur = auth()->user();
+    public function Index(){ 
+        if (auth()->check())  {// Vérifie si on est connecté 
+            $visiteur = auth()->user();// Récupère le visiteur connecté
             return view('accueil', [
                 'visiteur'=> $visiteur,
             ]);
         }
-        else {
+        else {// Sinon on redirige vers la page de connexion
             return redirect('/');
         }     
     }
@@ -34,8 +34,8 @@ class VisiteurController extends Controller
         if (auth()->check())  {
             $visiteur = auth()->user();
 
-            $praticiens = Praticien::all();
-            $medicaments = Medicament::all();
+            $praticiens = Praticien::all(); // Renvoie tous les praticiens
+            $medicaments = Medicament::all(); // Renvoie tous les médicaments 
             
 
             return view('rapport', [
@@ -53,8 +53,8 @@ class VisiteurController extends Controller
         if (auth()->check())  {
             $visiteur = auth()->user();
 
-            $praticiens = Praticien::all();
-            $rapports = Rapports::all();
+            $praticiens = Praticien::all(); // Renvoie tous les praticiens
+            $rapports = Rapports::all(); // Renvoie tous les rapports
             
             return view('rapportVoir', [
                 'visiteur'=> $visiteur,
@@ -71,12 +71,12 @@ class VisiteurController extends Controller
         if (auth()->check())  {
             $visiteur = auth()->user();
 
-            $rapport = Rapports::where('id', request('id'))->first();
-            $praticien = Praticien::where('id', $rapport['idPraticien'])->first();
-            $visiteurRapport = Visiteur::where('id', $rapport['idVisiteur'])->first();
-            $liensMedocs = MedicamentRapport::where('idRapport', $rapport['id'])->get();
-            $medicaments = Medicament::all();
-            $familles = Famille::all();
+            $rapport = Rapports::where('id', request('id'))->first(); // Renvoie le rapport avec l'id demandé 
+            $praticien = Praticien::where('id', $rapport['idPraticien'])->first(); // Renvoie le praticien dont l'id est contenue dans le rapport 
+            $visiteurRapport = Visiteur::where('id', $rapport['idVisiteur'])->first(); // Renvoie le visiteur dont l'id est contenue dans le rapport 
+            $liensMedocs = MedicamentRapport::where('idRapport', $rapport['id'])->get(); // Renvoie tous les liens médicaments-rapports qui ont pour idRapport l'id de notre rapport 
+            $medicaments = Medicament::all();// Renvoie tous les médicaments
+            $familles = Famille::all();// Renvoie toutes les familles  
             
             
             return view('rapportVoirUnit', [
@@ -95,13 +95,13 @@ class VisiteurController extends Controller
     }
 
     public function Rapport(){
-        if (auth()->check())  {
-            $visiteur = auth()->user();
+        if (auth()->check())  { // Vérifie si on est connecté 
+            $visiteur = auth()->user(); // Récupère le visiteur connecté
 
-            $desIndex = array_keys(request()->all());
+            $desIndex = array_keys(request()->all()); // Récupère tous les index des champs envoyés par notre formulaire 
             $i=0;
 
-            $rapport = Rapports::create([
+            $rapport = Rapports::create([ // Crée un rapport
                 'idPraticien' => request('praticien'),
                 'dateRapport' => request('dateRapport'),
                 'motif'=>request('motif'),
@@ -109,10 +109,10 @@ class VisiteurController extends Controller
                 'bilan'=>request('bilan'),
             ]);
 
-            foreach($desIndex as $index){
-                if (stristr($index, 'medicament')){
+            foreach($desIndex as $index){ // Parcoure les indexes 
+                if (stristr($index, 'medicament')){ // Si medicament est contenue dans l'indexe
                     $i++;
-                    $medicamentRapport = MedicamentRapport::create([
+                    $medicamentRapport = MedicamentRapport::create([ // On crée une liaison entre le rapport et le médicament
                         'idRapport'=>$rapport['id'],
                         'idMedicament'=>request('medicament'.$i),
                         'quantite'=>request('quantite'.$i),
@@ -121,7 +121,7 @@ class VisiteurController extends Controller
             }
             return redirect('/rapportdevisite/voir');
         }
-        else {
+        else { // Sinon on redirige vers la page de connexion
             return redirect('/');
         }
     }
@@ -129,11 +129,11 @@ class VisiteurController extends Controller
     public function Medicament(){
         if (auth()->check())  {
             $visiteur = auth()->user();
-            $medicaments = Medicament::all();
+            $medicaments = Medicament::all(); // Renvoie tous les médicaments
             return view('medicament', [
                 'visiteur'=> $visiteur,
                 'medicament'=>$medicaments[0],
-                'famille' => Famille::where('id', $medicaments[0]['famille'])->first(),
+                'famille' => Famille::where('id', $medicaments[0]['famille'])->first(), //Renvoie toutes les familles qui ont pour id l'id de la famille contenue dans  médicaments[0]
             ]);
         }
         else {
@@ -144,12 +144,12 @@ class VisiteurController extends Controller
     public function MedicamentSuivant(){
         if (auth()->check())  {
             $visiteur = auth()->user();
-            $medicament = Medicament::where('id', request('id')+1)->first();
+            $medicament = Medicament::where('id', request('id')+1)->first(); // Renvoie le medicament avec l'id supérieur
             if ($medicament != null){
                 return view('medicament', [
                     'visiteur'=> $visiteur,
                     'medicament'=>$medicament,
-                    'famille' => Famille::where('id', $medicament['famille'])->first(),
+                    'famille' => Famille::where('id', $medicament['famille'])->first(), // Renvoie sa famille
                 ]);
             }
             else {
@@ -164,12 +164,12 @@ class VisiteurController extends Controller
     public function MedicamentPrecedent(){
         if (auth()->check())  {
             $visiteur = auth()->user();
-            $medicament = Medicament::where('id', request('id')-1)->first();
+            $medicament = Medicament::where('id', request('id')-1)->first(); // Renvoie le medicament avec l'id d'en dessous
             if ($medicament != null){
                 return view('medicament', [
                     'visiteur'=> $visiteur,
                     'medicament'=>$medicament,
-                    'famille' => Famille::where('id', $medicament['famille'])->first(),
+                    'famille' => Famille::where('id', $medicament['famille'])->first(), //Renvoie sa famille
                 ]);
             }
             else {
@@ -184,12 +184,12 @@ class VisiteurController extends Controller
     public function Praticien(){
         if (auth()->check())  {
             $visiteur = auth()->user();
-            $praticiens = Praticien::all();
+            $praticiens = Praticien::all(); // Renvoie tous les praticiens
             return view('praticien', [
                 'praticiens'=>$praticiens,
                 'visiteur'=> $visiteur,
                 'praticien'=>$praticiens[0],
-                'lieu' => LieuxExercice::where('id', $praticiens[0]['lieu'])->first(),
+                'lieu' => LieuxExercice::where('id', $praticiens[0]['lieu'])->first(), //Renvoie sa famille
             ]);
         }
         else {
@@ -201,7 +201,7 @@ class VisiteurController extends Controller
         if (auth()->check())  {
             $visiteur = auth()->user();
             $praticiens = Praticien::all();
-            $praticien = Praticien::where('id', request('praticien'))->first();
+            $praticien = Praticien::where('id', request('praticien'))->first(); // Renvoie le praticien de la recherche 
             return view('praticien', [
                 'praticiens'=>$praticiens,
                 'visiteur'=> $visiteur,
@@ -278,9 +278,10 @@ class VisiteurController extends Controller
     public function VisiteurPost(){
         if (auth()->check())  {
             $visiteur = auth()->user();
-            $visiteurs = Visiteur::all();
-            $visiteurModif = Visiteur::where('id', request('id'))->first();
-            $visiteurModif->update([
+            $visiteurs = Visiteur::all(); // Renvoie tous les visiteurs 
+
+            $visiteurModif = Visiteur::where('id', request('id'))->first(); //Renvoie le visiteur sélectioné 
+            $visiteurModif->update([ // Modifie le visiteur
                 'nom' => request('nom'),
                 'prenom'=>request('prenom'),
                 'adresse'=>request('adresse'),
@@ -289,7 +290,7 @@ class VisiteurController extends Controller
                 'IDsecteur'=>request('secteur'),
                 'IDlabo'=>request('labo'),
             ]);
-            if (request('btn') == 'Recherche'){
+            if (request('btn') == 'Recherche'){ // Si c'est le bouton recherche qui a été cliqué 
                 $visiteurSelect = Visiteur::where('id', request('visiteur'))->first();
                 if($visiteurSelect != null){
                     return view('visiteur', [
@@ -306,7 +307,7 @@ class VisiteurController extends Controller
                     return back();
                 }
             }
-            else if(request('btn') == 'Precedent'){
+            else if(request('btn') == 'Precedent'){// Si c'est le bouton precedent qui a été cliqué 
                 $visiteurSelect = Visiteur::where('id', request('id')-1)->first();
                 if($visiteurSelect != null){
                     return view('visiteur', [
@@ -323,7 +324,7 @@ class VisiteurController extends Controller
                     return back();
                 }
             }
-            else if(request('btn') == 'Suivant'){
+            else if(request('btn') == 'Suivant'){// Si c'est le bouton suivant qui a été cliqué 
                 $visiteurSelect = Visiteur::where('id', request('id')+1)->first();
                 if($visiteurSelect != null){
                     return view('visiteur', [
@@ -348,7 +349,7 @@ class VisiteurController extends Controller
 
     public function Deconexion(){
         if (auth()->check())  {
-            auth()->logout();
+            auth()->logout(); // on déconnecte l'utilisateur 
             return redirect('/');
         }
         else {

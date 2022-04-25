@@ -26,10 +26,10 @@ Route::get('/accueil', 'App\Http\Controllers\VisiteurController@Index');
 
 //Rapport de visite 
 Route::get('/rapportdevisite', 'App\Http\Controllers\VisiteurController@RapportFormulaire');
-Route::post('/rapportdevisite', 'App\Http\Controllers\VisiteurController@Rapport');
+Route::post('/rapportdevisite', 'App\Http\Controllers\VisiteurController@Rapport'); // Pour la création d'un rapport
 
-Route::get('/rapportdevisite/voir', 'App\Http\Controllers\VisiteurController@RapportVoir');
-Route::get('/rapportdevisite/voir/{id}', 'App\Http\Controllers\VisiteurController@RapportVoirUnit');
+Route::get('/rapportdevisite/voir', 'App\Http\Controllers\VisiteurController@RapportVoir'); // Pour voir tous les rapports
+Route::get('/rapportdevisite/voir/{id}', 'App\Http\Controllers\VisiteurController@RapportVoirUnit'); // Pour voir un rapport
 
 
 //Médicament
@@ -39,12 +39,12 @@ Route::get('/medicament/suivant/{id}', 'App\Http\Controllers\VisiteurController@
 
 //Praticiens
 Route::get('/praticien', 'App\Http\Controllers\VisiteurController@Praticien');
-Route::post('/praticien', 'App\Http\Controllers\VisiteurController@PraticienRecherche');
+Route::post('/praticien', 'App\Http\Controllers\VisiteurController@PraticienRecherche'); // Pour la recherche 
 Route::get('/praticien/precedent/{id}', 'App\Http\Controllers\VisiteurController@PraticienPrecedent');
 Route::get('/praticien/suivant/{id}', 'App\Http\Controllers\VisiteurController@PraticienSuivant');
 
 //Visiteur
 Route::get('/visiteur', 'App\Http\Controllers\VisiteurController@Visiteur');
-Route::post('/visiteur', 'App\Http\Controllers\VisiteurController@VisiteurPost');
+Route::post('/visiteur', 'App\Http\Controllers\VisiteurController@VisiteurPost'); // À partir du moment où on clique sur un bouton 
 
 
